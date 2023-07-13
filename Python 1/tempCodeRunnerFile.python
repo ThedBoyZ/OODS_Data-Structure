@@ -1,0 +1,42 @@
+def plate_broke(frequency):
+    no_freq = ""
+    weight_freq = ""
+    dict_freq = {}
+    for plate in frequency:
+        for sub_index, sub_word in enumerate(plate):
+            if sub_word == " ":
+                no_freq = plate[sub_index + 1:]
+                weight_freq = plate[:sub_index + 1]
+                dict_freq[no_freq] = weight_freq
+        no_freq = ""
+        weight_freq = ""
+    
+    sorted_list = sorted(dict_freq.items(), key = lambda x:x[1])
+    dict_freq.clear()
+    before = 0
+    sorted_list_length = len(sorted_list)
+    for index, (key, value) in enumerate(sorted_list):
+        if index == 0:
+            key_before = key
+        if index + 1 < sorted_list_length:
+            next_key,next_value = sorted_list[index + 1]
+        if int(before) == int(value):
+            if key_before == key:
+                print(key)     
+            elif key_before < key:
+                print(key)
+                print(key_before)
+                break        
+            elif key_before > key:
+                print(key)
+                print(key_before)
+                break
+        elif int(before) > int(value):
+            print(key)
+            break
+        elif int(before) != int(value) and int(value) != int(next_value):
+            print(key)
+        before = value
+        key_before = key
+sonic = input("Enter Input: ").split(",")
+plate_broke(sonic)
